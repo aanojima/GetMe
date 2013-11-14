@@ -1,0 +1,27 @@
+{
+  "name": "Shopify",
+  "description": "YOUR PROJECT DESCRIPTION HERE",
+  "author": "YOUR NAME <your@emailaddress.com>",
+  "version": "0.0.1",
+  "dependencies": {
+    "connect": "1.8.5",
+    "express": ">2.5.2",
+    "socket.io": "0.8.7",
+    "jade": "*",
+    "ejs": "*",
+    "express3-handlebars": "*",
+    "locu": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "request": "*"
+  },
+  "devDependencies": {},
+  "engine": "node >= 0.6.6",
+  "subdomain": "getme",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

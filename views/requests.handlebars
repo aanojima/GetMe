@@ -1,0 +1,232 @@
+<div class="container">
+  {{#if paymentMade}}<div class="alert alert-success">
+    Payment made successfully!
+  </div>{{/if}}
+  <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+          <div class="panel-group" id="sentRequests">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#sentRequests" href="#collapseOne">
+                              <h2 class="text-center">Send a New Request</h2>
+                          </a>
+                      </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse">
+                      <div class="panel-body">
+                          <div class="col-md-9">
+                              <div class="row">
+                                  <div class="col-md-12"> 
+                                      <form class="form-inline" role="form" id="requestForm">
+                                        <div class="form-group">
+                                          <label class="sr-only" for "itemInput">Item</label>
+                                          <div class="input-group">
+                                              <span class="input-group-addon">Get me...</span>
+                                              <input type="text" class="form-control" id="itemInput" placeHolder="I don't know, some Jordans or something.">
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="sr-only" for "detailInput">Details</label>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">Any specifics?</span>
+                                            <input type="text" class="form-control" id="detailInput" placeHolder="I need the black and red ones with the velcro straps.">
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="sr-only" for "priceInput">Price</label>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">How much will you pay? $</span>
+                                            <input type="number" class="form-control" id="detailInput" placeHolder="0.00">
+                                          </div>
+                                        </div>
+
+                                        <br>
+                                        <br>
+
+                                        <span id="specify-place">Specify a Business: </span>
+                                        <span id="selected-place"></span>
+                                        <a id="change-place" href="#">Change</a>
+                                        <a href='#' id='place-search-back'>Back</a>
+                                        <div id="search-form" class="form-inline" class="form-control">
+                                          <div class="form-group">
+                                            <label class="sr-only" for="venue-name">Venue Name</label>
+                                            <input type="text" class="form-control" id="venue-name" placeholder="Venue Name">
+                                          </div>
+                                          <div class="form-group">
+                                            <label class="sr-only" for="zip-code">Zip Code</label>
+                                            <input type="number" class="form-control" id="zip-code" placeholder="Zip Code">
+                                          </div>
+                                          <button type="button" id='place-search-button' class="btn btn-default">Search</button>
+                                        </div>
+
+                                        <div class="list-group" id="search-results">
+                                        </div>
+                                        <!-- <div class="form-group">
+                                          <label class="sr-only" for="addressInput">Address</label>
+                                          <div class="input-group">
+                                              <span class="input-group-addon">If yes:</span>
+                                              <input type="text" class="form-control" id="addressInput" placeholder="Address">
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="sr-only" for="cityInput">Password</label>
+                                          <input type="text" class="form-control" id="cityInput" placeholder="City">
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="sr-only" for="stateInput">State</label>
+                                          <input type="text" class="form-control" id="stateInput" placeholder="State">
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="sr-only" for="zipInput">ZIP Code</label>
+                                          <input type="number" class="form-control" id="zipInput" placeholder="ZIP Code">
+                                        </div> -->
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-3 text-center">
+                              <button type="submit" class="btn btn-lg btn-primary button-center-vertical" id="sendRequestButton">Send Request</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-5 col-md-offset-1">
+          <div class="row" id="submittedRequestsTitleRow">
+              <div class="col-md-12">
+                  <h2 class=text-center>Your Submitted Requests</h2>
+              </div>
+          </div>
+          
+          {{#each yourRequests}}
+          <div class="row" id="row-{{id}}">
+              <div class="col-md-12">
+                  <div class="panel">
+                      <div class="col-md-9">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4><b>
+                                    {{#if open}}Not Yet Accepted{{/if}}
+                                    {{#if accepted}}Accepted by {{agent}}{{/if}}
+                                    {{#if purchased}}Purchased by {{agent}}{{/if}}
+                                    {{#if delivered}}Delivered by {{agent}}{{/if}}
+                                  </b></h4>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4>{{item}}</h4>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              {{details}}
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  Paying: ${{offer}}
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  {{place}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="row">
+                              <div class="col-md-12 text-center">
+                                  <input type="hidden" name="userRequestID{{id}}" value='{{id}}'>
+                                  {{#if open}}<button type="button" class="btn btn-danger button-center-vertical cancelButton" id="cancelButton{{id}}">Cancel Request</button>{{/if}}
+                                  {{#if accepted}}<button type="button" disabled="disabled" class="btn btn-default button-center-vertical">On the Way!</button>{{/if}}
+                                  {{#if purchased}}<button type="button" class="btn btn-info button-center-vertical venmoPayButton" id="venmoPay{{id}}">Pay with Venmo</button>{{/if}}
+                                  {{#if delivered}}<button type="button" class="btn btn-info button-center-vertical venmoPayButton" id="venmoPay{{id}}">Pay with Venmo</button>{{/if}}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {{/each}}
+
+      </div>
+
+      <div class="col-md-5">
+          <div class="row">
+              <div class="col-md-12">
+                  <h2 class=text-center>Your Accepted Retrievals</h2>
+              </div>
+          </div>
+
+          {{#each yourAcceptances}}
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="panel">
+                      <div class="col-md-9">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4><b>{{client}}</b></h4>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4><i>{{address}}</i></h4>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4>{{item}}</h4>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              {{details}}
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  Paying: ${{offer}}
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  {{place}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h5 class="text-center">
+                                    {{#if accepted}}Accepted{{/if}}
+                                    {{#if purchased}}Purchased{{/if}}
+                                    {{#if delivered}}Delivered{{/if}}
+                                  <h5>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12 text-center">
+                                  <input type="hidden" name="acceptedRequestID{{id}}" value='{{id}}'
+                                  {{#if accepted}}<button type="button" class="btn btn-primary button-center-vertical itemAquiredButton" id="itemPurchased{{id}}">I got it!</button>{{/if}}
+                                  {{#if purchased}}<button type="button" class="btn btn-primary button-center-vertical itemDeliveredButton" id="itemDelivered{{id}}">It's delivered!</button>{{/if}}
+                                  {{#if delivered}}<button type="button" class="btn btn-primary button-center-vertical" disabled="disabled">Check your Venmo</button>{{/if}}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {{/each}}
+
+      </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</div>
